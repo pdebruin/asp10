@@ -1,21 +1,16 @@
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS builder
-WORKDIR /app
+# https://github.com/dotnet/dotnet-docker/blob/main/samples/aspnetapp/Dockerfile.alpine-x64
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /source
 
-# caches restore result by copying csproj file separately
-COPY *.csproj .
-RUN dotnet restore
+COPY web/*.csproj .
+RUN dotnet restore -r linux-musl-x64
 
-COPY . .
+COPY web/. .
+#RUN dotnet publish -c Release -o /app -r linux-musl-x64 --self-contained false --no-restore
 RUN dotnet publish --output /app/ --configuration Release --no-restore
-RUN sed -n 's:.*<AssemblyName>\(.*\)</AssemblyName>.*:\1:p' *.csproj > __assemblyname
-RUN if [ ! -s __assemblyname ]; then filename=$(ls *.csproj); echo ${filename%.*} > __assemblyname; fi
 
-# Stage 2
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
-COPY --from=builder /app .
+COPY --from=build /app .
 
-ENV PORT 8080
-EXPOSE 8080
-
-ENTRYPOINT dotnet $(cat /app/__assemblyname).dll --urls "http://*:8080"
+ENTRYPOINT ["./web"]

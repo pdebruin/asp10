@@ -46,7 +46,7 @@ env:
   CLUSTER_RESOURCE_TYPE: Microsoft.ContainerService/managedClusters
   DEPLOYMENT_MANIFEST_PATH: ./manifests
   DOCKER_FILE: ./Dockerfile
-  BUILD_CONTEXT_PATH: ./web
+  BUILD_CONTEXT_PATH: .
   NAMESPACE: sample-app-namespace-1790789531404
   ENABLENAMESPACECREATION: false
   AUTH_TYPE: SERVICE_PRINCIPAL

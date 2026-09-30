@@ -1,0 +1,13 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pdbauto
+  labels:
+    app.kubernetes.io/name: pdbauto
+    app.kubernetes.io/part-of: pdbauto-project
+    kubernetes.azure.com/generator: devhub
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: pdbauto

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: pdbauto-config
-  namespace: sample-app-namespace-1790789531404
+  namespace: asp-demo
   labels:
     app.kubernetes.io/name: pdbauto
     kubernetes.azure.com/generator: devhub

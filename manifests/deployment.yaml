@@ -5,7 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/name: pdbauto
     kubernetes.azure.com/generator: devhub
-  namespace: sample-app-namespace-1790789531404
+  namespace: asp-demo
 spec:
   replicas: 2
   selector:
